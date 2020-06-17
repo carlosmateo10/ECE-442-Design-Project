@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1079917831613",
+    "firebase_url": "https://ece-442-design-project.firebaseio.com",
+    "project_id": "ece-442-design-project",
+    "storage_bucket": "ece-442-design-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1079917831613:android:5479e2da5b13c6f0225ed4",
+        "android_client_info": {
+          "package_name": "es.upm.dit.ece442designproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1079917831613-er4ahvp8gbt4spjo8vjpcu2dgdv23qk5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG0ojEVNPiJQ32De_UW7OSxuBQnkV9jy4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1079917831613-er4ahvp8gbt4spjo8vjpcu2dgdv23qk5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/button_cancel_save_ss"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        layout_editor_absoluteX="115dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="CANCEL"
+        app:layout_constraintEnd_toStartOf="@+id/button_save_ss"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/button_save_ss" />
+
+    <Button
+        android:id="@+id/button_save_ss"
+        layout_editor_absoluteX="230dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="SAVE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_cancel_save_ss"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.595" />
+
+    <EditText
+        android:id="@+id/editText_ss_id"
+        layout_editor_absoluteX="68dp"
+        layout_editor_absoluteY="117dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:ems="10"
+        android:hint="Enter SS Name..."
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/editText_ss_MAC"
+        app:layout_constraintEnd_toEndOf="@+id/editText_ss_MAC"
+        app:layout_constraintStart_toStartOf="@+id/editText_ss_MAC" />
+
+    <EditText
+        android:id="@+id/editText_ss_MAC"
+        layout_editor_absoluteX="49dp"
+        layout_editor_absoluteY="157dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:ems="10"
+        android:hint="Enter SS MAC..."
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/editText_ss_PIN"
+        app:layout_constraintEnd_toEndOf="@+id/editText_ss_PIN" />
+
+    <EditText
+        android:id="@+id/editText_ss_PIN"
+        layout_editor_absoluteX="131dp"
+        layout_editor_absoluteY="272dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:hint="Enter SS PIN..."
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/button_cancel_save_ss"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
