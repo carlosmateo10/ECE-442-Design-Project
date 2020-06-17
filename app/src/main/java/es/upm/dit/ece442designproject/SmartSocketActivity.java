@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -28,11 +31,13 @@ import java.util.Map;
 public class SmartSocketActivity extends AppCompatActivity {
 
     private TextView ssID, ssMAC, ssPower;
-    private ImageView ssState, ssSafety;
-    private Switch ssSwitch;
+    private ImageView ssState, ssSafety, ssManualBlock;
+    private Button ssSwitch;
     private Intent intent;
     private FirebaseFirestore firebaseFirestore;
     private String userId;
+    private EditText ssThreshold;
+    private Spinner ssMode, ssUpDown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,10 @@ public class SmartSocketActivity extends AppCompatActivity {
         ssState = findViewById(R.id.ss_state);
         ssSafety = findViewById(R.id.ss_safety);
         ssSwitch = findViewById(R.id.ss_swith);
+        ssThreshold = findViewById(R.id.ss_threshold);
+        ssMode = findViewById(R.id.mode_spinner);
+        ssUpDown = findViewById(R.id.up_down_spinner);
+        ssManualBlock = findViewById(R.id.ss_manual_block);
 
         intent = getIntent();
 
@@ -53,6 +62,22 @@ public class SmartSocketActivity extends AppCompatActivity {
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        firebaseFirestore.collection("users").document(userId).collection("sockets_control").document(intent.getStringExtra("MAC"))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        DocumentSnapshot smartSocket = task.getResult();
+                        ssMode.setSelection((int)(long)smartSocket.get("mode"));
+                        ssThreshold.setText(smartSocket.get("threshold").toString());
+                        if((boolean)smartSocket.get("up_down") == true) {
+                            ssUpDown.setSelection(0);
+                        } else {
+                            ssUpDown.setSelection(1);
+                        }
+                    }
+                });
 
         firebaseFirestore.collection("users").document(userId).collection("sockets_states").document(intent.getStringExtra("MAC"))
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -68,6 +93,11 @@ public class SmartSocketActivity extends AppCompatActivity {
                             ssSafety.setVisibility(View.VISIBLE);
                         } else {
                             ssSafety.setVisibility(View.GONE);
+                        }
+                        if((boolean)documentSnapshot.get("manual_block") == true) {
+                            ssManualBlock.setVisibility(View.VISIBLE);
+                        } else {
+                            ssManualBlock.setVisibility(View.GONE);
                         }
                     }
                 });
@@ -102,5 +132,19 @@ public class SmartSocketActivity extends AppCompatActivity {
                         startActivity(new Intent(SmartSocketActivity.this, MainActivity.class));
                     }
                 });
+    }
+
+    public void saveControl(View view) {
+        Map<String, Object> data = new HashMap<String, Object>();
+
+        data.put("mode", ssMode.getSelectedItemPosition());
+        data.put("threshold", Integer.parseInt(ssThreshold.getText().toString()));
+        if(ssUpDown.getSelectedItemPosition() == 0) {
+            data.put("up_down", true);
+        } else {
+            data.put("up_down", false);
+        }
+
+        firebaseFirestore.collection("users").document(userId).collection("sockets_control").document(intent.getStringExtra("MAC")).update(data);
     }
 }

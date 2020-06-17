@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -51,7 +52,7 @@ class SmartSocketAdapter extends FirestoreRecyclerAdapter<SmartSocket, SmartSock
         TextView ssMAC;
         TextView ssId;
         ImageView ssState;
-        Switch ssSwitch;
+        Button ssSwitch;
 
         public SmartSocketViewHolder(@NonNull View itemView) {
             super(itemView);

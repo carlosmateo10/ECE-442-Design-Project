@@ -6,4 +6,9 @@
         <item>Humidity</item>
         <item>Illumination</item>
     </string-array>
+
+    <string-array name="up_down">
+        <item>UP</item>
+        <item>DOWN</item>
+    </string-array>
 </resources>

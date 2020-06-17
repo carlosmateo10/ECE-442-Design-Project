@@ -69,7 +69,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="5dp"
@@ -81,15 +81,16 @@
         app:layout_constraintTop_toBottomOf="@+id/ss_swith">
 
         <EditText
-            android:id="@+id/editTextNumber"
+            android:id="@+id/ss_threshold"
             android:layout_width="200dp"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="50dp"
             android:ems="10"
             android:inputType="number"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinner" />
+            app:layout_constraintTop_toBottomOf="@+id/mode_spinner" />
 
         <TextView
             android:id="@+id/textView4"
@@ -98,9 +99,20 @@
             android:layout_marginEnd="5dp"
             android:text="THRESHOLD:"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/editTextNumber"
-            app:layout_constraintEnd_toStartOf="@+id/editTextNumber"
-            app:layout_constraintTop_toTopOf="@+id/editTextNumber" />
+            app:layout_constraintBottom_toBottomOf="@+id/ss_threshold"
+            app:layout_constraintEnd_toStartOf="@+id/ss_threshold"
+            app:layout_constraintTop_toTopOf="@+id/ss_threshold" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="UP DOWN:"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/up_down_spinner"
+            app:layout_constraintEnd_toStartOf="@+id/ss_threshold"
+            app:layout_constraintTop_toTopOf="@+id/up_down_spinner" />
 
         <TextView
             android:id="@+id/textView5"
@@ -109,29 +121,64 @@
             android:layout_marginEnd="5dp"
             android:text="MODE:"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/spinner"
-            app:layout_constraintEnd_toStartOf="@+id/spinner"
-            app:layout_constraintTop_toTopOf="@+id/spinner" />
+            app:layout_constraintBottom_toBottomOf="@+id/mode_spinner"
+            app:layout_constraintEnd_toStartOf="@+id/mode_spinner"
+            app:layout_constraintTop_toTopOf="@+id/mode_spinner" />
 
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/mode_spinner"
             android:layout_width="200dp"
             android:layout_height="25dp"
             android:layout_marginTop="50dp"
             android:entries="@array/operation_modes"
             android:gravity="center"
             android:textAlignment="center"
-            app:layout_constraintStart_toStartOf="@+id/editTextNumber"
+            app:layout_constraintStart_toStartOf="@+id/ss_threshold"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/up_down_spinner"
+            android:layout_width="200dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="20dp"
+            android:entries="@array/up_down"
+            android:gravity="center"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="@+id/ss_threshold"
+            app:layout_constraintTop_toBottomOf="@+id/ss_threshold" />
+
+        <Button
+            android:id="@+id/save_control"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:onClick="saveControl"
+            android:text="Save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/up_down_spinner" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Switch
+    <Button
         android:id="@+id/ss_swith"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginTop="5dp"
+        android:background="@drawable/switch_29869_1280"
         app:layout_constraintEnd_toEndOf="@+id/ss_state"
         app:layout_constraintStart_toStartOf="@+id/ss_state"
         app:layout_constraintTop_toBottomOf="@+id/ss_state" />
+
+    <ImageView
+        android:id="@+id/ss_manual_block"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ss_id"
+        app:layout_constraintStart_toEndOf="@+id/ss_id"
+        app:layout_constraintTop_toTopOf="@+id/ss_id"
+        app:srcCompat="@android:drawable/ic_lock_idle_lock" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
