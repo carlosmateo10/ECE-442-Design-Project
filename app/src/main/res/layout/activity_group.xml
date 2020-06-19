@@ -1,88 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/ss_id"
+        android:id="@+id/group_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:text="ID"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/ss_MAC"
+        android:id="@+id/group_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:text="count"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ss_id" />
+        app:layout_constraintTop_toBottomOf="@+id/group_id" />
 
     <Button
-        android:id="@+id/remove_ss"
-        android:layout_width="wrap_content"
+        android:id="@+id/remove_group"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
         android:layout_marginBottom="5dp"
-        android:onClick="deleteSS"
-        android:text="Remove smart socket"
+        android:backgroundTint="@color/common_google_signin_btn_text_dark_default"
+        android:onClick="deleteGroup"
+        android:text="Remove group"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/ss_state"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ss_MAC"/>
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/modify_group" />
 
     <TextView
-        android:id="@+id/ss_power"
+        android:id="@+id/group_power"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="5dp"
         android:text="Power:"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/ss_swith"
-        app:layout_constraintStart_toEndOf="@+id/ss_state"
-        app:layout_constraintTop_toTopOf="@+id/ss_state" />
-
-    <ImageView
-        android:id="@+id/ss_safety"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="110dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/danger" />
+        app:layout_constraintBottom_toBottomOf="@+id/group_swith"
+        app:layout_constraintStart_toEndOf="@+id/group_swith"
+        app:layout_constraintTop_toTopOf="@+id/group_swith" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/layout_border"
-        app:layout_constraintBottom_toTopOf="@+id/remove_ss"
+        app:layout_constraintBottom_toTopOf="@+id/remove_group"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ss_swith">
+        app:layout_constraintStart_toStartOf="parent">
 
         <EditText
-            android:id="@+id/ss_threshold"
+            android:id="@+id/group_threshold"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -100,9 +83,9 @@
             android:layout_marginEnd="5dp"
             android:text="THRESHOLD:"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/ss_threshold"
-            app:layout_constraintEnd_toStartOf="@+id/ss_threshold"
-            app:layout_constraintTop_toTopOf="@+id/ss_threshold" />
+            app:layout_constraintBottom_toBottomOf="@+id/group_threshold"
+            app:layout_constraintEnd_toStartOf="@+id/group_threshold"
+            app:layout_constraintTop_toTopOf="@+id/group_threshold" />
 
         <TextView
             android:id="@+id/textView_time_on"
@@ -132,7 +115,7 @@
             android:text="UP DOWN:"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/up_down_spinner"
-            app:layout_constraintEnd_toStartOf="@+id/ss_threshold"
+            app:layout_constraintEnd_toStartOf="@+id/group_threshold"
             app:layout_constraintTop_toTopOf="@+id/up_down_spinner" />
 
         <TextView
@@ -166,8 +149,8 @@
             android:entries="@array/up_down"
             android:gravity="center"
             android:textAlignment="center"
-            app:layout_constraintStart_toStartOf="@+id/ss_threshold"
-            app:layout_constraintTop_toBottomOf="@+id/ss_threshold" />
+            app:layout_constraintStart_toStartOf="@+id/group_threshold"
+            app:layout_constraintTop_toBottomOf="@+id/group_threshold" />
 
         <Button
             android:id="@+id/save_control"
@@ -209,24 +192,13 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:id="@+id/ss_swith"
+        android:id="@+id/group_swith"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
         android:background="@drawable/switch_29869_1280"
-        app:layout_constraintEnd_toEndOf="@+id/ss_state"
-        app:layout_constraintStart_toStartOf="@+id/ss_state"
-        app:layout_constraintTop_toBottomOf="@+id/ss_state" />
-
-    <ImageView
-        android:id="@+id/ss_manual_block"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="25dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ss_id"
-        app:layout_constraintStart_toEndOf="@+id/ss_id"
-        app:layout_constraintTop_toTopOf="@+id/ss_id"
-        app:srcCompat="@android:drawable/ic_lock_idle_lock" />
+        app:layout_constraintBottom_toBottomOf="@+id/time_trig_btn"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/time_trig_btn"
@@ -237,5 +209,19 @@
         android:text="time schedule off"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/modify_group"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="@color/common_google_signin_btn_text_dark_default"
+        android:text="MODIFY GROUP"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/remove_group"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        android:onClick="modifyGroup"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

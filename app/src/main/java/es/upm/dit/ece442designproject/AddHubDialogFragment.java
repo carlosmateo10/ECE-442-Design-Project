@@ -11,29 +11,27 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-public class AddSSDialogFragment extends DialogFragment implements View.OnClickListener{
+public class AddHubDialogFragment extends DialogFragment implements View.OnClickListener{
 
-    private EditText ssID;
-    private EditText ssMAC;
-    private EditText ssPIN;
+    private EditText hubID;
+    private EditText hubCode;
     private View RootView;
 
-    public interface AddSSDialogListener {
-        void addSSDialogResult(String id, String MAC, String PIN);
+    public interface AddHubDialogListener {
+        void addHubDialogResult(String id, String code);
     }
 
-    public AddSSDialogFragment.AddSSDialogListener addSSDialogListener;
+    public AddHubDialogListener addHubDialogListener;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        RootView = inflater.inflate(R.layout.add_ss_dialog, container, false);
+        RootView = inflater.inflate(R.layout.add_hub_dialog, container, false);
 
-        ssID = RootView.findViewById(R.id.editText_ss_id);
-        ssMAC = RootView.findViewById(R.id.editText_ss_code);
-        ssPIN = RootView.findViewById(R.id.editText_ss_PIN);
+        hubID = RootView.findViewById(R.id.editText_hub_id);
+        hubCode = RootView.findViewById(R.id.editText_hub_code);
 
         RootView.findViewById(R.id.button_cancel_save_ss).setOnClickListener(this);
         RootView.findViewById(R.id.button_save_ss).setOnClickListener(this);
@@ -62,7 +60,7 @@ public class AddSSDialogFragment extends DialogFragment implements View.OnClickL
     }
 
     public void onSaveClicked() {
-        addSSDialogListener.addSSDialogResult(ssID.getText().toString(), ssMAC.getText().toString(), ssPIN.getText().toString());
+        addHubDialogListener.addHubDialogResult(hubID.getText().toString(), hubCode.getText().toString());
         dismiss();
     }
 
@@ -72,9 +70,8 @@ public class AddSSDialogFragment extends DialogFragment implements View.OnClickL
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            addSSDialogListener = (AddSSDialogFragment.AddSSDialogListener) getActivity();
+            addHubDialogListener = (AddHubDialogListener) getActivity();
         } catch (ClassCastException e){
         }
     }
 }
-

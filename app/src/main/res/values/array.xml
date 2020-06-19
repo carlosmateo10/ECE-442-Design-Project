@@ -5,6 +5,7 @@
         <item>Temperature</item>
         <item>Humidity</item>
         <item>Illumination</item>
+        <item>Time Schedule</item>
     </string-array>
 
     <string-array name="up_down">
