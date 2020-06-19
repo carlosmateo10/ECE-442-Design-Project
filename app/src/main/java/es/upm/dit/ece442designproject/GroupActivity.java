@@ -113,6 +113,20 @@ public class GroupActivity extends AppCompatActivity implements EditGroupDialogF
                     }
                 });
 
+        firebaseFirestore.collection("hubs").document(hubCode).collection("groups").document(intent.getStringExtra("groupID"))
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                        if(documentSnapshot.exists()) {
+                            if((boolean)documentSnapshot.get("time_trig") == true) {
+                                groupTimeSchedule.setText("TIME SCHEDULE ON");
+                            } else {
+                                groupTimeSchedule.setText("TIME SCHEDULE OFF");
+                            }
+                        }
+                    }
+                });
+
         groupSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,22 +152,24 @@ public class GroupActivity extends AppCompatActivity implements EditGroupDialogF
         groupTimeSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (String ss : ssMACs) {
-                    System.out.println("Smart Socket TIME SCHEDULE " + ss);
-                    final Map<String, Object> ss_update = new HashMap<>();
-                    final String MAC = ss;
-
-                    firebaseFirestore.collection("hubs").document(hubCode).collection("sockets_control").document(MAC)
-                            .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            DocumentSnapshot smartSocketDoc = task.getResult();
-                            Boolean time_trig = (Boolean) smartSocketDoc.get("time_trig");
+                final Map<String, Object> ss_update = new HashMap<>();
+                firebaseFirestore.collection("hubs").document(hubCode).collection("groups").document(intent.getStringExtra("groupID"))
+                        .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        DocumentSnapshot smartSocketDoc = task.getResult();
+                        Boolean time_trig = (Boolean) smartSocketDoc.get("time_trig");
+                        ss_update.put("time_trig", !time_trig);
+                        for (String ss : ssMACs) {
+                            System.out.println("Smart Socket TIME SCHEDULE " + ss);
+                            final Map<String, Object> ss_update = new HashMap<>();
+                            final String MAC = ss;
                             ss_update.put("time_trig", !time_trig);
                             firebaseFirestore.collection("hubs").document(hubCode).collection("sockets_control").document(MAC).update(ss_update);
                         }
-                    });
-                }
+                        firebaseFirestore.collection("hubs").document(hubCode).collection("groups").document(intent.getStringExtra("groupID")).update(ss_update);
+                    }
+                });
             }
         });
 
@@ -291,6 +307,7 @@ public class GroupActivity extends AppCompatActivity implements EditGroupDialogF
         for (String ss : ssMACs) {
             firebaseFirestore.collection("hubs").document(hubCode).collection("sockets_control").document(ss).update(data);
         }
+        firebaseFirestore.collection("hubs").document(hubCode).collection("groups").document(intent.getStringExtra("groupID")).update(data);
     }
 
     @Override
@@ -299,6 +316,6 @@ public class GroupActivity extends AppCompatActivity implements EditGroupDialogF
         group.put("SmartSockets", ssMACs);
         group.put("count", ssMACs.size());
 
-        firebaseFirestore.collection("hubs").document(hubCode).collection("groups").document(groupID.getText().toString()).update(group);
+        firebaseFirestore.collection("hubs").document(hubCode).collection("groups").document(intent.getStringExtra("groupID")).update(group);
     }
 }

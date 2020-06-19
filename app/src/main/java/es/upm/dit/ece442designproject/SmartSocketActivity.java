@@ -24,7 +24,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +38,7 @@ public class SmartSocketActivity extends AppCompatActivity {
     private Button ssSwitch, ssTimeSchedule;
     private Intent intent;
     private FirebaseFirestore firebaseFirestore;
-    private String hubCode;
+    private String hubCode, hubId, userID;
     private EditText ssThreshold;
     private Spinner ssMode, ssUpDown;
     private TextView timeOnPickerText, timeOffPickerText, timeOnText, timeOffText;
@@ -69,6 +71,8 @@ public class SmartSocketActivity extends AppCompatActivity {
         ssID.setText(intent.getStringExtra("ID"));
         ssMAC.setText(intent.getStringExtra("MAC"));
         hubCode = intent.getStringExtra("hubCode");
+        hubId = intent.getStringExtra("hubId");
+        userID = FirebaseAuth.getInstance().getUid();
 
         firebaseFirestore = FirebaseFirestore.getInstance();
 
@@ -276,7 +280,47 @@ public class SmartSocketActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        startActivity(new Intent(SmartSocketActivity.this, HubActivity.class));
+                        Intent intent = new Intent(SmartSocketActivity.this, HubActivity.class);
+                        intent.putExtra("hubCode", hubCode);
+                        intent.putExtra("hubId", hubId);
+                        startActivity(intent);
+                    }
+                });
+
+        firebaseFirestore.collection("users").document(userID).collection("hubs").document(hubCode)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        DocumentSnapshot documentSnapshot = task.getResult();
+                        long count = (long) documentSnapshot.get("count");
+
+                        Map<String, Object> data = new HashMap<String, Object>();
+                        data.put("count", count-1);
+                        firebaseFirestore.collection("users").document(userID).collection("hubs").document(hubCode).update(data);
+                    }
+                });
+
+        firebaseFirestore.collection("hubs").document(hubCode).collection("groups")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        QuerySnapshot groups = task.getResult();
+
+                        for( DocumentSnapshot group : groups) {
+                            ArrayList<String> ssMACs = (ArrayList<String>) group.get("SmartSockets");
+                            if (ssMACs.contains(intent.getStringExtra("MAC"))) {
+                                ssMACs.remove(intent.getStringExtra("MAC"));
+                                long count = (long) group.get("count");
+
+                                Map<String, Object> data = new HashMap<String, Object>();
+                                data.put("count", count-1);
+                                data.put("SmartSockets", ssMACs);
+
+                                firebaseFirestore.collection("hubs").document(hubCode).collection("groups").document(group.getId()).update(data);
+                            }
+                        }
                     }
                 });
     }

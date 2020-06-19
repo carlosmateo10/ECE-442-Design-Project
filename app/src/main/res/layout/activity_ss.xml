@@ -86,11 +86,10 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="50dp"
             android:ems="10"
             android:inputType="number"
             android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/mode_spinner"
             app:layout_constraintTop_toBottomOf="@+id/mode_spinner" />
 
         <TextView
@@ -102,26 +101,29 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/ss_threshold"
             app:layout_constraintEnd_toStartOf="@+id/ss_threshold"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintTop_toTopOf="@+id/ss_threshold" />
 
         <TextView
             android:id="@+id/textView_time_on"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
             android:text="TIME ON:"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/timeOnPicker"
-            app:layout_constraintEnd_toEndOf="@+id/textView5"
+            app:layout_constraintEnd_toStartOf="@+id/timeOnPicker"
             app:layout_constraintTop_toTopOf="@+id/timeOnPicker" />
 
         <TextView
             android:id="@+id/textView_time_off"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
             android:text="TIME OFF:"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/timeOffPicker"
-            app:layout_constraintEnd_toEndOf="@+id/textView5"
+            app:layout_constraintEnd_toStartOf="@+id/timeOffPicker"
             app:layout_constraintTop_toTopOf="@+id/timeOffPicker" />
 
         <TextView
@@ -132,26 +134,29 @@
             android:text="UP DOWN:"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/up_down_spinner"
-            app:layout_constraintEnd_toStartOf="@+id/ss_threshold"
+            app:layout_constraintEnd_toStartOf="@+id/up_down_spinner"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintTop_toTopOf="@+id/up_down_spinner" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
+            android:layout_marginEnd="2dp"
             android:text="MODE:"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/mode_spinner"
             app:layout_constraintEnd_toStartOf="@+id/mode_spinner"
-            app:layout_constraintTop_toTopOf="@+id/mode_spinner" />
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintTop_toTopOf="@+id/mode_spinner"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Spinner
             android:id="@+id/mode_spinner"
             android:layout_width="200dp"
             android:layout_height="25dp"
             android:layout_marginTop="50dp"
-            android:layout_marginEnd="50dp"
+            android:layout_marginEnd="40dp"
             android:entries="@array/operation_modes"
             android:gravity="center"
             android:textAlignment="center"
@@ -166,7 +171,7 @@
             android:entries="@array/up_down"
             android:gravity="center"
             android:textAlignment="center"
-            app:layout_constraintStart_toStartOf="@+id/ss_threshold"
+            app:layout_constraintStart_toStartOf="@+id/mode_spinner"
             app:layout_constraintTop_toBottomOf="@+id/ss_threshold" />
 
         <Button
@@ -187,24 +192,22 @@
             android:id="@+id/timeOnPicker"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
             android:layout_marginTop="20dp"
             android:text="SELECT TIME ON"
             android:textAlignment="center"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/textView_time_on"
+            app:layout_constraintStart_toStartOf="@+id/mode_spinner"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
         <TextView
             android:id="@+id/timeOffPicker"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
             android:layout_marginTop="20dp"
             android:text="SELECT TIME OFF"
             android:textAlignment="center"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/textView_time_off"
+            app:layout_constraintStart_toStartOf="@+id/mode_spinner"
             app:layout_constraintTop_toBottomOf="@+id/timeOnPicker" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

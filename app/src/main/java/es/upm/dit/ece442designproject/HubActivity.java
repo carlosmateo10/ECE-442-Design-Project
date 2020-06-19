@@ -101,6 +101,7 @@ public class HubActivity extends AppCompatActivity implements SmartSocketAdapter
         intent.putExtra("MAC", smartSocket.getMAC());
         intent.putExtra("ID", smartSocket.getId());
         intent.putExtra("hubCode", hubCode);
+        intent.putExtra("hubId", hubId);
         startActivity(intent);
     }
 
